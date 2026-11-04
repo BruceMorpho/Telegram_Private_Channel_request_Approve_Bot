@@ -10,5 +10,17 @@ export default async function handler(req, res) {
     allowed_updates: ["message", "chat_join_request"],
     drop_pending_updates: true,
   });
-  res.status(200).send(`Webhook set: ${url}`);
+
+  await bot.api.setMyCommands([
+    { command: "users", description: "List users" },
+    { command: "ban", description: "Ban user" },
+    { command: "unban", description: "Unban user" },
+    { command: "bans", description: "Banned list" },
+    { command: "broadcast", description: "Message everyone" },
+    { command: "delete", description: "Delete a sent broadcast" },
+    { command: "post", description: "Post to channel" },
+    { command: "setwelcome", description: "Set welcome message" },
+  ]);
+
+  res.status(200).send(`Webhook + menu set: ${url}`);
 }
